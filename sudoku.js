@@ -82,10 +82,33 @@ function parseGrid(grid){
     return values;
 }
 
+// Values is an object that looks like this
 
+// {
+//    A1 = "123456789";
+//    A2= "123456789"}
+      //  s = "A1", square to reduce
+      //  d = "5" number to eliminate
+//    /*
+   
 function eliminate(values,s,d){
-  // here
+  debugger;
+ if (!values[s].contains(d)) {
+     return values;}
+ values[s] =  values[s].replace(d, '');
+     if( values[s].length === 1) {
+         // eliminate the peers
+         peers[s].forEach(
+             function(peer) { // peer = "a1" etc a string
+            // eliminate
+            eliminate (values, peer, values[s]);
+         }
+         );
+     }
+     return values;
 }
+// check the new reduced values of the square
+// if the length = 1, we can assign that value to the square
 
 
 function draw(values){
@@ -93,3 +116,6 @@ function draw(values){
         document.getElementById(key).innerHTML = values[key]; 
     }
 }
+
+var x = parseGrid(puzzle);
+draw(x);
